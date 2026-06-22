@@ -52,14 +52,16 @@ function toggleValue(values: string[], value: string) {
 }
 
 export function SurveyForm() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(-1);
   const [answers, setAnswers] = useState<SurveyAnswers>(initialAnswers);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const isIntroStep = step === -1;
 
   const progress = useMemo(() => Math.round(((step + 1) / steps.length) * 100), [step]);
 
   const canContinue = useMemo(() => {
+    if (isIntroStep) return true;
     if (step === 0) return Boolean(answers.bakingFocus);
     if (step === 1) return Boolean(answers.experience);
     if (step === 2) return answers.products.length > 0;
@@ -67,7 +69,7 @@ export function SurveyForm() {
     if (step === 4) return answers.fermentation.length > 0;
     if (step === 5) return Boolean(answers.biggestQuestion);
     return Boolean(answers.email);
-  }, [answers, step]);
+  }, [answers, isIntroStep, step]);
 
   function updateAnswer<Key extends keyof SurveyAnswers>(key: Key, value: SurveyAnswers[Key]) {
     setAnswers((current) => ({ ...current, [key]: value }));
@@ -81,7 +83,7 @@ export function SurveyForm() {
   }
 
   function previousStep() {
-    setStep((current) => Math.max(current - 1, 0));
+    setStep((current) => Math.max(current - 1, -1));
   }
 
   async function onSubmit() {
@@ -112,7 +114,7 @@ export function SurveyForm() {
           : "Firebase is nog niet ingesteld. Je antwoorden zijn lokaal bewaard tijdens ontwikkeling."
       );
       setAnswers(initialAnswers);
-      setStep(0);
+      setStep(-1);
     } catch {
       setStatus("error");
       setMessage("Opslaan lukte niet. Probeer het later nog een keer.");
@@ -121,23 +123,40 @@ export function SurveyForm() {
 
   return (
     <form
-      className="survey-form survey-card-flow"
+      className={isIntroStep ? "survey-form survey-card-flow is-intro" : "survey-form survey-card-flow"}
       onSubmit={(event) => {
         event.preventDefault();
         void onSubmit();
       }}
     >
-      <div className="survey-progress" aria-label={`Stap ${step + 1} van ${steps.length}`}>
-        <div className="survey-progress-top">
-          <span>Stap {step + 1} van {steps.length}</span>
-          <span>{steps[step]}</span>
+      {!isIntroStep ? (
+        <div className="survey-progress" aria-label={`Stap ${step + 1} van ${steps.length}`}>
+          <div className="survey-progress-top">
+            <span>Stap {step + 1} van {steps.length}</span>
+            <span>{steps[step]}</span>
+          </div>
+          <div className="survey-progress-track">
+            <span style={{ width: `${progress}%` }} />
+          </div>
         </div>
-        <div className="survey-progress-track">
-          <span style={{ width: `${progress}%` }} />
-        </div>
-      </div>
+      ) : null}
 
       <div className="survey-card">
+        {isIntroStep ? (
+          <div className="survey-start">
+            <p className="eyebrow">Vragenlijst</p>
+            <p className="survey-start-lede">
+              Met 7 korte vragen help je bepalen welke bloem, starters en technische kennis BakkersLab als eerste
+              moet aanbieden.
+            </p>
+            <div className="survey-start-points">
+              <p>We vragen eerst wat je bakt en hoe ervaren je bent.</p>
+              <p>Daarna kies je welke producten, bloemwaarden en fermentatietechnieken je belangrijk vindt.</p>
+              <p>Je e-mailadres vragen we pas aan het einde voor vroege toegang en updates over de lancering.</p>
+            </div>
+          </div>
+        ) : null}
+
         {step === 0 ? (
           <fieldset className="fieldset">
             <legend>Waar bak je vooral mee?</legend>
@@ -287,17 +306,25 @@ export function SurveyForm() {
       </div>
 
       <div className="survey-actions">
-        <button className="button secondary" disabled={step === 0 || status === "loading"} onClick={previousStep} type="button">
-          Terug
-        </button>
-        {step < steps.length - 1 ? (
-          <button className="button" disabled={!canContinue} onClick={nextStep} type="button">
-            Volgende
+        {isIntroStep ? (
+          <button className="button survey-start-button" onClick={nextStep} type="button">
+            Start vragenlijst
           </button>
         ) : (
-          <button className="button" disabled={!canContinue || status === "loading"} type="submit">
-            {status === "loading" ? "Bezig..." : "Verstuur antwoorden"}
-          </button>
+          <>
+            <button className="button secondary" disabled={status === "loading"} onClick={previousStep} type="button">
+              Terug
+            </button>
+            {step < steps.length - 1 ? (
+              <button className="button" disabled={!canContinue} onClick={nextStep} type="button">
+                Volgende
+              </button>
+            ) : (
+              <button className="button" disabled={!canContinue || status === "loading"} type="submit">
+                {status === "loading" ? "Bezig..." : "Verstuur antwoorden"}
+              </button>
+            )}
+          </>
         )}
       </div>
 

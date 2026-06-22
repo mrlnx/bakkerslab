@@ -18,7 +18,6 @@ export function ContactForm() {
       const result = await saveContact({
         name: String(form.get("name") ?? ""),
         email: String(form.get("email") ?? ""),
-        phone: String(form.get("phone") ?? ""),
         message: String(form.get("message") ?? "")
       });
 
@@ -46,10 +45,6 @@ export function ContactForm() {
           <label htmlFor="contact-email">E-mail</label>
           <input id="contact-email" name="email" type="email" autoComplete="email" required />
         </div>
-      </div>
-      <div className="field">
-        <label htmlFor="contact-phone">Telefoon</label>
-        <input id="contact-phone" name="phone" type="tel" autoComplete="tel" />
       </div>
       <div className="field">
         <label htmlFor="contact-message">Bericht</label>

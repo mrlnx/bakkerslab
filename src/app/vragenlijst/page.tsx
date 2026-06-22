@@ -1,24 +1,12 @@
+import { Header } from "@/app/components/Header";
 import { SurveyForm } from "@/app/components/SurveyForm";
 
 export default function SurveyPage() {
   return (
     <main className="site-shell">
-      <header className="nav">
-        <div className="nav-inner">
-          <a className="brand-mark" href="/">
-            <img src="/images/bakkerslab-wordmark.svg" alt="BakkersLab" />
-          </a>
-          <nav className="nav-links" aria-label="Hoofdnavigatie">
-            <a href="/kennis">Kennis</a>
-            <a className="is-active" href="#survey" aria-current="page">
-              Vragenlijst
-            </a>
-            <a href="/#contact">Contact</a>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
-      <section className="page-hero">
+      <section className="page-hero survey-page-hero">
         <div className="section-inner">
           <p className="eyebrow">Vragenlijst</p>
           <h1 className="page-title">Wat zoek jij in bloem?</h1>
@@ -30,13 +18,6 @@ export default function SurveyPage() {
 
       <section className="section survey-section" id="survey">
         <div className="section-inner survey-wrap">
-          <div>
-            <h2>7 korte stappen</h2>
-            <p className="section-lede">
-              Eerst een paar inhoudelijke vragen over wat je bakt en zoekt. Pas aan het einde
-              vragen we je e-mailadres voor de lancering en vroege toegang.
-            </p>
-          </div>
           <SurveyForm />
         </div>
       </section>

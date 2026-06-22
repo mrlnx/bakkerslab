@@ -1,4 +1,5 @@
 import { ContactForm } from "@/app/components/ContactForm";
+import { Header } from "@/app/components/Header";
 import { knowledgeArticles } from "@/lib/content";
 
 const products = [
@@ -27,18 +28,7 @@ const products = [
 export default function Home() {
   return (
     <main className="site-shell">
-      <header className="nav">
-        <div className="nav-inner">
-          <a className="brand-mark" href="/">
-            <img src="/images/bakkerslab-wordmark.svg" alt="BakkersLab" />
-          </a>
-          <nav className="nav-links" aria-label="Hoofdnavigatie">
-            <a href="/kennis">Kennis</a>
-            <a href="/vragenlijst#survey">Vragenlijst</a>
-            <a href="#contact">Contact</a>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <section className="hero">
         <video
@@ -166,32 +156,66 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section black" id="contact">
-        <div className="section-inner contact-layout">
-          <div>
-            <p className="eyebrow">Contact</p>
-            <h2 className="contact-title">
-              <span>Vragen of</span> <span>samenwerken?</span>
-            </h2>
-            <p className="section-lede">
-              Neem contact op over BakkersLab, leveranciers, bloemselectie of de lancering.
-            </p>
-            <div className="contact-details">
-              <a className="contact-link" href="mailto:info@bakkerslab.nl">
-                <span>E-mail</span>
-                <span>info@bakkerslab.nl</span>
-              </a>
-              <a className="contact-link" href="https://instagram.com/bakkerslab">
-                <span>Instagram</span>
-                <span>@bakkerslab</span>
-              </a>
-              <a className="contact-link" href="tel:0883000000">
-                <span>Telefoon</span>
-                <span>0883000000</span>
-              </a>
+      <section className="section black contact-section" id="contact">
+        <div className="contact-layout">
+          <div className="contact-block contact-info-block has-image">
+            <div className="contact-block-content">
+              <p className="eyebrow">Voor vragen of samenwerking</p>
+              <h2 className="contact-title">Contact</h2>
+              <p className="section-lede">
+                Neem contact op over BakkersLab, leveranciers, bloemselectie of de lancering.
+              </p>
+              <div className="contact-grid contact-details">
+                <a className="contact-card contact-card-instagram" href="https://instagram.com/bakkerslab">
+                  <span className="contact-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="img">
+                      <rect x="4" y="4" width="16" height="16" rx="4" />
+                      <circle cx="12" cy="12" r="3.5" />
+                      <circle cx="16.8" cy="7.2" r="0.8" />
+                    </svg>
+                  </span>
+                  <span>
+                    <strong>Instagram</strong>
+                    <small>@bakkerslab</small>
+                  </span>
+                </a>
+                <a className="contact-card contact-card-email" href="mailto:info@bakkerslab.nl">
+                  <span className="contact-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="img">
+                      <path d="M4 6h16v12H4z" />
+                      <path d="m4 7 8 6 8-6" />
+                    </svg>
+                  </span>
+                  <span>
+                    <strong>E-mailadres</strong>
+                    <small>info@bakkerslab.nl</small>
+                  </span>
+                </a>
+                <div className="contact-card contact-card-address">
+                  <span className="contact-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="img">
+                      <path d="M12 21s7-6.2 7-12A7 7 0 0 0 5 9c0 5.8 7 12 7 12Z" />
+                      <circle cx="12" cy="9" r="2.4" />
+                    </svg>
+                  </span>
+                  <span>
+                    <strong>Bezoekersadres</strong>
+                    <small>Op afspraak / adres volgt</small>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-          <ContactForm />
+          <div className="contact-block contact-form-block has-image">
+            <div className="contact-block-content">
+              <div className="contact-grid contact-message-row">
+                <div className="form-heading">
+                  <h3>Stuur ons een bericht</h3>
+                </div>
+                <ContactForm />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

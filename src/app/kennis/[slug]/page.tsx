@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Header } from "@/app/components/Header";
 import { getKnowledgeArticle, knowledgeArticles } from "@/lib/content";
 
 type ArticlePageProps = {
@@ -35,20 +36,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <main className="site-shell">
-      <header className="nav">
-        <div className="nav-inner">
-          <a className="brand-mark" href="/">
-            <img src="/images/bakkerslab-wordmark.svg" alt="BakkersLab" />
-          </a>
-          <nav className="nav-links" aria-label="Hoofdnavigatie">
-            <a className="is-active" href="/kennis" aria-current="page">
-              Kennis
-            </a>
-            <a href="/vragenlijst#survey">Vragenlijst</a>
-            <a href="/#contact">Contact</a>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <section className="page-hero">
         <div className="section-inner">

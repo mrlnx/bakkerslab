@@ -6,20 +6,25 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/kennis/page": [
+    "/vragenlijst/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/kennis/page.js"
+      "static/chunks/app/vragenlijst/page.js"
     ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/vragenlijst/page": [
+    "/kennis/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/vragenlijst/page.js"
+      "static/chunks/app/kennis/page.js"
+    ],
+    "/kennis/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/kennis/[slug]/page.js"
     ]
   }
 }

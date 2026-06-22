@@ -10,7 +10,7 @@ const getNextConfig = (phase: string): NextConfig => {
     phase === PHASE_DEVELOPMENT_SERVER
       ? ".next-dev"
       : phase === PHASE_PRODUCTION_BUILD
-        ? ".next-build"
+        ? "out"
         : ".next";
 
   return {
@@ -19,6 +19,7 @@ const getNextConfig = (phase: string): NextConfig => {
     experimental: {
       devtoolSegmentExplorer: false
     },
+    output: "export",
     outputFileTracingRoot: appRoot
   };
 };
